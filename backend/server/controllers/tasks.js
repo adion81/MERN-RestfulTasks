@@ -13,6 +13,11 @@ module.exports = {
             .then(result => res.json({results: result}))
             .catch(err => res.json({errors: err.errors}));
     },
+    createTask: (req,res) => {
+        Task.create(req.body)
+            .then(result => res.json({results:result}))
+            .catch(err => res.json({errors: err.errors}));
+    },
     updateTask: (req,res) => {
         Task.findOneAndUpdate({_id: req.params.taskId},req.body,{runValidators:true})
             .then(result => res.json({results: result}))
