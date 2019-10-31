@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
 
 module.exports = {
     getTasks: (req,res) => {
-        Task.create(req.body)
+        Task.find()
             .then(result => res.json({results: result}))
             .catch(err => res.json({errors: err.errors}));
     },
@@ -14,6 +14,7 @@ module.exports = {
             .catch(err => res.json({errors: err.errors}));
     },
     createTask: (req,res) => {
+        console.log(req.body);
         Task.create(req.body)
             .then(result => res.json({results:result}))
             .catch(err => res.json({errors: err.errors}));

@@ -12,8 +12,8 @@ function App() {
     <Router>
       <div className="container">
         <Nav/>
-        <h1>Task Master</h1>
-        <Route path='/tasks' componenet={AllTasks}/>
+        <h1 className="text-center">Task Master</h1>
+        <Route path='/tasks' component={AllTasks}/>
         <Route path='/show' component={Show}/>
         <Route path='/new' component={New} />
         <Route path='/update' component={Update} />
