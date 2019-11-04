@@ -8,7 +8,7 @@ export default class Task extends Component{
         const {id,title, description, completed, handleClick,redirect} = this.props;
         return(
             <tr  id={id}className="text-center" >
-                <td onClick={completed === false ? () => redirect(id):''} className="pointer hover-edit" >{title}</td>
+                <td onClick={completed === false ? () => redirect(id):''} className={completed === true ? "":"pointer hover-edit"} >{title}</td>
                 <td>{description}</td>
                 <td>{completed === false ? 'NO':'YES'}</td>
                 <td>
