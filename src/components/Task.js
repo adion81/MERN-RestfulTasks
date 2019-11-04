@@ -5,10 +5,10 @@ export default class Task extends Component{
 
     render(){
         console.log(this.props.completed)
-        const {id,title, description, completed, handleClick} = this.props;
+        const {id,title, description, completed, handleClick,redirect} = this.props;
         return(
-            <tr id={id}className="text-center">
-                <td>{title}</td>
+            <tr  id={id}className="text-center" >
+                <td onClick={completed === false ? () => redirect(id):''} className="pointer hover-edit" >{title}</td>
                 <td>{description}</td>
                 <td>{completed === false ? 'NO':'YES'}</td>
                 <td>

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Task from './Task';
+import { Redirect } from 'react-router-dom';
 
 export default class AllTasks extends Component{
     constructor(){
         super();
         this.state = {
-            allTasks: []
+            allTasks: [],
+            redirect: false,
+            showId: ''
         }
         this.handleClick = this.handleClick.bind(this)
         this.getTasks = this.getTasks.bind(this)
+        this.handleShow = this.handleShow.bind(this)
     }
     componentWillMount(){
         this.getTasks();
@@ -45,6 +49,7 @@ export default class AllTasks extends Component{
         console.log(this.state.allTasks)
         return this.state.allTasks.map(row => {
             return <Task 
+                redirect={this.handleShow}
                 id={row._id}
                 key={row._id}
                 title={row.title}
@@ -54,25 +59,38 @@ export default class AllTasks extends Component{
             />
         })
     }
+    handleShow(id){
+        this.setState(prevState => ({
+            redirect: true
+        }))
+        this.setState(prevState => ({showId: id}))
+        
+    }
+
 
     render(){
-        return(
-            <div className="container">
-                <h3 className="text-center">My Tasks</h3>
-                <table className="table table-hover ">
-                    <thead>
-                        <tr className="text-center bg-dark text-light">
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Completed</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.createTaskTable()}
-                    </tbody>
-                </table>
-            </div>
-        );
+        if(this.state.redirect){
+            return <Redirect to={`/show/${this.state.showId}`} />
+        }
+        else{
+            return(
+                <div className="container">
+                    <h3 className="text-center">My Tasks</h3>
+                    <table className="table table-hover ">
+                        <thead>
+                            <tr className="text-center bg-dark text-light">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Completed</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.allTasks <=0 ? <tr className="text-center"><td>Create some tasks, yo...</td></tr>:this.createTaskTable()}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
     }
 }
